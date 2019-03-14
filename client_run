@@ -1,0 +1,14 @@
+LASTCOMP=$(stat bin/client -c %Y)
+
+for i in $( find src/ -type f ); do
+  SRC_CHANGE=$(stat $i -c %Y)
+
+  if [ $SRC_CHANGE -gt $LASTCOMP ]; then
+    ./build
+    break
+  fi
+done
+
+#while true; do
+  ./bin/client $1 $2
+#done
